@@ -6,7 +6,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	service "github.com/Nigel23932/go-svc/src"
+	service "github.com/Nigel2392/go-svc/src"
 	"github.com/pkg/errors"
 	"golang.org/x/sys/windows/svc"
 	"golang.org/x/sys/windows/svc/eventlog"

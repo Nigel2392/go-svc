@@ -1,4 +1,4 @@
-module github.com/Nigel23932/go-svc
+module github.com/Nigel2392/go-svc
 
 go 1.24.0
 

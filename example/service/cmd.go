@@ -7,9 +7,9 @@ import (
 	"os/signal"
 	"syscall"
 
-	service "github.com/Nigel23932/go-svc/src"
-	"github.com/Nigel23932/go-svc/src/elevation"
-	"github.com/Nigel23932/go-svc/src/installer"
+	service "github.com/Nigel2392/go-svc/src"
+	"github.com/Nigel2392/go-svc/src/elevation"
+	"github.com/Nigel2392/go-svc/src/installer"
 	"github.com/spf13/cobra"
 	"golang.org/x/sys/windows/svc"
 )

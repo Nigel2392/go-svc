@@ -5,7 +5,7 @@ import (
 	"os"
 	"time"
 
-	"github.com/Nigel23932/go-svc/src/installer"
+	"github.com/Nigel2392/go-svc/src/installer"
 	"github.com/spf13/cobra"
 	"golang.org/x/sys/windows/svc"
 	"golang.org/x/sys/windows/svc/eventlog"
