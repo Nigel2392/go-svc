@@ -11,6 +11,7 @@ import (
 	"github.com/Nigel23932/go-svc/src/elevation"
 	"github.com/Nigel23932/go-svc/src/installer"
 	"github.com/spf13/cobra"
+	"golang.org/x/sys/windows/svc"
 )
 
 // Keeps the command window open until the user presses Ctrl+C or the program is terminated.
@@ -126,8 +127,36 @@ func InstallationStatus(cnf *installer.ServiceInstallerConfig) func(cmd *cobra.C
 
 		if installed {
 			log.Println("Service is installed.")
+
 		} else {
 			log.Println("Service is not installed.")
+			waitBeforeExit()
+			return
+		}
+
+		status, err := installer.QueryServiceStatus()
+		if err != nil {
+			waitBeforeExit(err)
+			return
+		}
+
+		switch status.State {
+		case svc.Stopped:
+			log.Println("Service is stopped.")
+		case svc.StartPending:
+			log.Println("Service is starting.")
+		case svc.StopPending:
+			log.Println("Service is stopping.")
+		case svc.Running:
+			log.Println("Service is running.")
+		case svc.ContinuePending:
+			log.Println("Service is continuing.")
+		case svc.PausePending:
+			log.Println("Service is pausing.")
+		case svc.Paused:
+			log.Println("Service is paused.")
+		default:
+			log.Println("Service is in an unknown state.")
 		}
 
 		waitBeforeExit()

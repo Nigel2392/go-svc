@@ -60,12 +60,18 @@ mainLoop:
 			switch c.Cmd {
 			case svc.Interrogate:
 				status <- c.CurrentStatus
+
 			case svc.Stop, svc.Shutdown:
+				m.ELog.Info(1, "Service stopping")
+				status <- svc.Status{State: svc.StopPending}
 				break mainLoop
+
 			case svc.Pause:
 				status <- svc.Status{State: svc.Paused, Accepts: m.Accepted}
+
 			case svc.Continue:
 				status <- svc.Status{State: svc.Running, Accepts: m.Accepted}
+
 			default:
 				m.ELog.Error(2, "unexpected control request")
 			}
