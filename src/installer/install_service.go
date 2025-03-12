@@ -108,24 +108,16 @@ func (si *serviceInstaller) Remove() error {
 	}
 
 	if status.State != svc.Stopped && (status.Accepts&svc.AcceptStop != 0 || status.Accepts&svc.AcceptShutdown != 0) {
-		var (
-			newStatus svc.Status
-			err       error
-		)
-
+		var err error
 		switch {
-		case status.Accepts&svc.AcceptShutdown != 0:
-			newStatus, err = s.Control(svc.Shutdown)
 		case status.Accepts&svc.AcceptStop != 0:
-			newStatus, err = s.Control(svc.Stop)
+			_, err = s.Control(svc.Stop)
+		case status.Accepts&svc.AcceptShutdown != 0:
+			_, err = s.Control(svc.Shutdown)
 		}
 
 		if err != nil {
-			return fmt.Errorf("Remove.service.Control(): failed to stop service: %w", err)
-		}
-
-		if newStatus.State != svc.Stopped {
-			return fmt.Errorf("Remove.service.Control(): failed to stop service: state %d", newStatus.State)
+			return fmt.Errorf("Remove.service.Control(): failed to stop service: %w %d", err, err)
 		}
 	}
 
